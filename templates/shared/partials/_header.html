@@ -8,16 +8,22 @@
             <a href="{% url 'home' %}" class="nav-link active bg-light text-success fw-semibold" aria-current="page">Início</a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link text-white">Serviços</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link text-white">Preços</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link text-white">Contato</a>
-        </li>
-        <li class="nav-item">
             <a href="{% url 'sobre' %}" class="nav-link text-white">Sobre</a>
         </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <span class="nav-link text-white fw-bold">Olá, {{ user.username }}</span>
+            </li>
+            <li class="nav-item">
+                <form method="post" action="{% url 'logout' %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger ms-2">Sair</button>
+                </form>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a href="{% url 'login' %}" class="btn btn-success ms-2">Login</a>
+            </li>
+        {% endif %}
     </ul>
 </header>
